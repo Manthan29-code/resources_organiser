@@ -3,7 +3,7 @@
     "id": "res-1790915675040-mxfcdr",
     "title": "React Flow Documentation",
     "url": "https://reactflow.dev",
-    "description": "React Flow is a React library for building interactive flowcharts, workflows, and node-based visual editors with drag-and-drop support.",
+    "description": "React Flow is a powerful library for building node-based editors, workflow builders, decision trees, and visual programming interfaces in React. It provides customizable nodes, edges, drag-and-drop functionality, zoom controls, minimaps, and state management utilities. Useful for creating flowcharts, mind maps, process diagrams, and workflow automation tools.",
     "categoryId": "cat-repo",
     "tags": [
       "react",
@@ -16,7 +16,7 @@
     ],
     "type": "website",
     "createdAt": "2026-10-02T04:34:35.040Z",
-    "updatedAt": "2026-10-02T09:41:02.095Z"
+    "updatedAt": "2026-10-02T04:34:35.040Z"
   },
   {
     "id": "res-code2tutorial",

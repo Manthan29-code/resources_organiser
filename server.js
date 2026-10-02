@@ -1,6 +1,32 @@
 const http = require("http");
 const fs = require("fs/promises");
+const fsSync = require("fs");
 const path = require("path");
+
+// Auto-load .env file if present
+try {
+  if (typeof process.loadEnvFile === "function") {
+    process.loadEnvFile();
+  } else {
+    const envPath = path.join(__dirname, ".env");
+    if (fsSync.existsSync(envPath)) {
+      const envLines = fsSync.readFileSync(envPath, "utf8").split("\n");
+      for (const line of envLines) {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith("#") && trimmed.includes("=")) {
+          const [k, ...v] = trimmed.split("=");
+          const key = k.trim();
+          const val = v.join("=").trim().replace(/^['"]|['"]$/g, "");
+          if (!process.env[key]) {
+            process.env[key] = val;
+          }
+        }
+      }
+    }
+  }
+} catch {
+  // Ignore .env loading errors
+}
 
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
@@ -81,7 +107,9 @@ async function readJson(filePath, fallback) {
   }
 }
 
-async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
+let syncQueue = Promise.resolve();
+
+async function syncToGitHub(filePath, dataOrNull, isDelete = false, retries = 2) {
   if (!GITHUB_TOKEN || !GITHUB_REPO) return;
 
   try {
@@ -91,12 +119,16 @@ async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
       "Authorization": `token ${GITHUB_TOKEN}`,
       "Accept": "application/vnd.github.v3+json",
       "User-Agent": "ResourceOrganiser-Sync",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache, no-store, must-revalidate"
     };
 
     let sha = null;
     try {
-      const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, { headers });
+      const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(GITHUB_BRANCH)}&_t=${Date.now()}`, {
+        headers,
+        cache: "no-store"
+      });
       if (getRes.ok) {
         const existing = await getRes.json();
         sha = existing.sha;
@@ -107,7 +139,7 @@ async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
 
     if (isDelete) {
       if (!sha) return;
-      await fetch(apiUrl, {
+      const delRes = await fetch(apiUrl, {
         method: "DELETE",
         headers,
         body: JSON.stringify({
@@ -116,7 +148,9 @@ async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
           branch: GITHUB_BRANCH
         })
       });
-      console.log(`[GitHub Sync] Deleted ${relativePath} from ${GITHUB_REPO}`);
+      if (delRes.ok) {
+        console.log(`[GitHub Sync] Deleted ${relativePath} from ${GITHUB_REPO}`);
+      }
       return;
     }
 
@@ -138,6 +172,10 @@ async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
       console.log(`[GitHub Sync] Synced ${relativePath} to ${GITHUB_REPO}`);
     } else {
       const errData = await putRes.json().catch(() => ({}));
+      if ((putRes.status === 409 || errData.message?.includes("expected")) && retries > 0) {
+        await new Promise((r) => setTimeout(r, 600));
+        return syncToGitHub(filePath, dataOrNull, isDelete, retries - 1);
+      }
       console.error(`[GitHub Sync] Failed syncing ${relativePath}:`, errData.message || putRes.statusText);
     }
   } catch (err) {
@@ -145,9 +183,16 @@ async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
   }
 }
 
+function queueGitHubSync(filePath, dataOrNull, isDelete = false) {
+  if (!GITHUB_TOKEN || !GITHUB_REPO) return;
+  syncQueue = syncQueue
+    .then(() => syncToGitHub(filePath, dataOrNull, isDelete))
+    .catch((err) => console.error("[GitHub Sync Queue Error]", err));
+}
+
 async function writeJson(filePath, data) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
-  syncToGitHub(filePath, data, false).catch(() => {});
+  queueGitHubSync(filePath, data, false);
 }
 
 function ensureArray(value) {
@@ -223,7 +268,7 @@ async function deleteResourceFile(categoryId) {
     }
   }
   await updateMetaTimestamp();
-  syncToGitHub(filePath, null, true).catch(() => {});
+  queueGitHubSync(filePath, null, true);
 }
 
 async function getAllResources(categories) {
@@ -576,4 +621,9 @@ const server = http.createServer(async (request, response) => {
 
 server.listen(PORT, () => {
   console.log(`Resource Organiser running at http://localhost:${PORT}`);
+  if (GITHUB_TOKEN && GITHUB_REPO) {
+    console.log(`[GitHub Sync] Active -> Auto-syncing changes to ${GITHUB_REPO} (branch: ${GITHUB_BRANCH})`);
+  } else {
+    console.log(`[GitHub Sync] Inactive (No GITHUB_TOKEN or GITHUB_REPO configured)`);
+  }
 });

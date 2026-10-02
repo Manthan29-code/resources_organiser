@@ -1,5 +1,23 @@
 [
   {
+    "id": "note-1790915515750-ftf5mw",
+    "title": "JavaScript Array Methods",
+    "kind": "note",
+    "content": "map()      -> Transforms elements\nfilter()   -> Selects matching elements\nreduce()   -> Accumulates values\nfind()     -> Returns first matching item\nsome()     -> Checks if any item matches\nevery()    -> Checks if all items match\n\nTip:\nPrefer map/filter over manual loops when readability is important.",
+    "relatedCategoryId": "",
+    "createdAt": "2026-10-02T04:31:55.747Z",
+    "updatedAt": "2026-10-02T04:31:55.747Z"
+  },
+  {
+    "id": "note-1790915108203-mnbflp",
+    "title": "AI Code Review Prompt",
+    "kind": "prompt",
+    "content": "Review the following code for:\n1. Performance issues\n2. Security vulnerabilities\n3. Code readability\n4. Best practices\n5. Edge cases\n\nProvide improved code with explanations.",
+    "relatedCategoryId": "",
+    "createdAt": "2026-10-02T04:25:08.200Z",
+    "updatedAt": "2026-10-02T04:25:08.200Z"
+  },
+  {
     "id": "note-1790909580445-w3gi6z",
     "title": "React Performance Optimization Checklist",
     "kind": "checklist",

@@ -1,13 +1,15 @@
-{
-    "id":  "res-chat4data",
-    "title":  "Chat4data",
-    "url":  "",
-    "description":  "Web scraping resource.",
-    "categoryId":  "cat-scrape",
-    "tags":  [
-                 "scraping"
-             ],
-    "type":  "tool",
-    "createdAt":  "2026-04-10T18:30:00.000Z",
-    "updatedAt":  "2026-04-10T18:30:00.000Z"
-}
+[
+  {
+    "id": "res-chat4data",
+    "title": "Chat4data",
+    "url": "",
+    "description": "Web scraping resource.",
+    "categoryId": "cat-scrape",
+    "tags": [
+      "scraping"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  }
+]

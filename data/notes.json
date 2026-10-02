@@ -12,10 +12,10 @@
     "id": "note-1790915515750-ftf5mw",
     "title": "JavaScript Array Methods",
     "kind": "note",
-    "content": "map()      -> Transforms elements\nfilter()   -> Selects matching elements\nreduce()   -> Accumulates values\nfind()     -> Returns first matching item\nsome()     -> Checks if any item matches\nevery()    -> Checks if all items match\n\nTip:\nPrefer map/filter over manual loops when readability is important.",
+    "content": "## JavaScript Array Methods\n\n- **`map()`** → Transforms elements\n- **`filter()`** → Selects matching elements\n- **`reduce()`** → Accumulates values\n- **`find()`** → Returns the first matching item\n- **`some()`** → Checks if any item matches\n- **`every()`** → Checks if all items match\n\n> **Tip:** Prefer `map()` and `filter()` over manual loops when readability is important.",
     "relatedCategoryId": "",
     "createdAt": "2026-10-02T04:31:55.747Z",
-    "updatedAt": "2026-10-02T04:31:55.747Z"
+    "updatedAt": "2026-10-02T10:02:03.989Z"
   },
   {
     "id": "note-1790915108203-mnbflp",

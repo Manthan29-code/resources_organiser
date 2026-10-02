@@ -1,0 +1,508 @@
+const http = require("http");
+const fs = require("fs/promises");
+const path = require("path");
+
+const PORT = process.env.PORT || 3000;
+const ROOT = __dirname;
+const PUBLIC_DIR = path.join(ROOT, "public");
+const DATA_DIR = path.join(ROOT, "data");
+const RESOURCES_DIR = path.join(DATA_DIR, "resources");
+const META_PATH = path.join(DATA_DIR, "meta.json");
+const CATEGORIES_PATH = path.join(DATA_DIR, "categories.json");
+const NOTES_PATH = path.join(DATA_DIR, "notes.json");
+
+const MIME_TYPES = {
+  ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "application/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8"
+};
+
+function sendJson(response, statusCode, payload) {
+  response.writeHead(statusCode, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store"
+  });
+  response.end(JSON.stringify(payload, null, 2));
+}
+
+function sendText(response, statusCode, message) {
+  response.writeHead(statusCode, { "Content-Type": "text/plain; charset=utf-8" });
+  response.end(message);
+}
+
+function readBody(request) {
+  return new Promise((resolve, reject) => {
+    let raw = "";
+    request.on("data", (chunk) => {
+      raw += chunk.toString();
+      if (raw.length > 1_000_000) {
+        reject(new Error("Payload too large"));
+        request.destroy();
+      }
+    });
+    request.on("end", () => {
+      try {
+        resolve(raw ? JSON.parse(raw) : {});
+      } catch {
+        reject(new Error("Invalid JSON body"));
+      }
+    });
+    request.on("error", reject);
+  });
+}
+
+function makeId(prefix) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function normalizeString(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function resourceFilePath(categoryId) {
+  const safeName = normalizeString(categoryId).replace(/[^a-zA-Z0-9-_]/g, "_");
+  return path.join(RESOURCES_DIR, `${safeName}.json`);
+}
+
+async function readJson(filePath, fallback) {
+  try {
+    const content = await fs.readFile(filePath, "utf8");
+    return JSON.parse(content);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return fallback;
+    }
+    throw error;
+  }
+}
+
+async function writeJson(filePath, data) {
+  await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
+}
+
+function ensureArray(value) {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  if (value && typeof value === "object") {
+    return [value];
+  }
+  return [];
+}
+
+async function ensureStorage() {
+  await fs.mkdir(RESOURCES_DIR, { recursive: true });
+
+  if ((await readJson(META_PATH, null)) === null) {
+    await writeJson(META_PATH, {
+      title: "Resource Organiser",
+      description: "Hybrid JSON-backed storage for resources, categories, and notes.",
+      updatedAt: new Date().toISOString()
+    });
+  }
+
+  if ((await readJson(CATEGORIES_PATH, null)) === null) {
+    await writeJson(CATEGORIES_PATH, []);
+  }
+
+  if ((await readJson(NOTES_PATH, null)) === null) {
+    await writeJson(NOTES_PATH, []);
+  }
+}
+
+async function updateMetaTimestamp() {
+  const meta = await readJson(META_PATH, {});
+  meta.updatedAt = new Date().toISOString();
+  await writeJson(META_PATH, meta);
+}
+
+async function getCategories() {
+  return ensureArray(await readJson(CATEGORIES_PATH, []));
+}
+
+async function saveCategories(categories) {
+  await writeJson(CATEGORIES_PATH, categories);
+  await updateMetaTimestamp();
+}
+
+async function getNotes() {
+  return ensureArray(await readJson(NOTES_PATH, []));
+}
+
+async function saveNotes(notes) {
+  await writeJson(NOTES_PATH, notes);
+  await updateMetaTimestamp();
+}
+
+async function getResourcesForCategory(categoryId) {
+  return ensureArray(await readJson(resourceFilePath(categoryId), []));
+}
+
+async function saveResourcesForCategory(categoryId, resources) {
+  await writeJson(resourceFilePath(categoryId), resources);
+  await updateMetaTimestamp();
+}
+
+async function deleteResourceFile(categoryId) {
+  try {
+    await fs.unlink(resourceFilePath(categoryId));
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+  await updateMetaTimestamp();
+}
+
+async function getAllResources(categories) {
+  const groups = await Promise.all(categories.map((category) => getResourcesForCategory(category.id)));
+  return groups.flat();
+}
+
+async function readDatabase() {
+  await ensureStorage();
+  const [meta, categories, notes] = await Promise.all([
+    readJson(META_PATH, {}),
+    getCategories(),
+    getNotes()
+  ]);
+  const resources = await getAllResources(categories);
+  return { meta, categories, resources, notes };
+}
+
+async function findResource(resourceId) {
+  const categories = await getCategories();
+
+  for (const category of categories) {
+    const resources = await getResourcesForCategory(category.id);
+    const index = resources.findIndex((resource) => resource.id === resourceId);
+    if (index !== -1) {
+      return { categoryId: category.id, resources, index, resource: resources[index] };
+    }
+  }
+
+  return null;
+}
+
+async function serveStatic(requestPath, response) {
+  const safePath = requestPath === "/" ? "/index.html" : requestPath;
+  const fullPath = path.join(PUBLIC_DIR, safePath);
+  const normalized = path.normalize(fullPath);
+
+  if (!normalized.startsWith(PUBLIC_DIR)) {
+    sendText(response, 403, "Forbidden");
+    return;
+  }
+
+  try {
+    const file = await fs.readFile(normalized);
+    const extension = path.extname(normalized);
+    response.writeHead(200, {
+      "Content-Type": MIME_TYPES[extension] || "application/octet-stream"
+    });
+    response.end(file);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      try {
+        const file = await fs.readFile(path.join(PUBLIC_DIR, "index.html"));
+        response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        response.end(file);
+      } catch {
+        sendText(response, 500, "Unable to load app");
+      }
+      return;
+    }
+
+    sendText(response, 500, "Server error");
+  }
+}
+
+async function createCategory(request, response) {
+  const body = await readBody(request);
+  const name = normalizeString(body.name);
+  if (!name) {
+    sendJson(response, 400, { error: "Category name is required" });
+    return true;
+  }
+
+  const categories = await getCategories();
+  const category = {
+    id: makeId("cat"),
+    name,
+    description: normalizeString(body.description),
+    icon: normalizeString(body.icon) || "spark",
+    accent: normalizeString(body.accent) || "teal"
+  };
+
+  categories.unshift(category);
+  await saveCategories(categories);
+  await saveResourcesForCategory(category.id, []);
+  sendJson(response, 201, category);
+  return true;
+}
+
+async function createResource(request, response) {
+  const body = await readBody(request);
+  const title = normalizeString(body.title);
+  const categoryId = normalizeString(body.categoryId);
+
+  if (!title || !categoryId) {
+    sendJson(response, 400, { error: "Resource title and category are required" });
+    return true;
+  }
+
+  const categories = await getCategories();
+  if (!categories.some((category) => category.id === categoryId)) {
+    sendJson(response, 400, { error: "Selected category does not exist" });
+    return true;
+  }
+
+  const now = new Date().toISOString();
+  const resource = {
+    id: makeId("res"),
+    title,
+    url: normalizeString(body.url),
+    description: normalizeString(body.description),
+    categoryId,
+    tags: Array.isArray(body.tags)
+      ? body.tags.map(normalizeString).filter(Boolean)
+      : normalizeString(body.tags).split(",").map((tag) => tag.trim()).filter(Boolean),
+    type: normalizeString(body.type) || "resource",
+    createdAt: now,
+    updatedAt: now
+  };
+
+  const resources = await getResourcesForCategory(categoryId);
+  resources.unshift(resource);
+  await saveResourcesForCategory(categoryId, resources);
+  sendJson(response, 201, resource);
+  return true;
+}
+
+async function createNote(request, response) {
+  const body = await readBody(request);
+  const title = normalizeString(body.title);
+  const content = normalizeString(body.content);
+
+  if (!title || !content) {
+    sendJson(response, 400, { error: "Note title and content are required" });
+    return true;
+  }
+
+  const now = new Date().toISOString();
+  const notes = await getNotes();
+  const note = {
+    id: makeId("note"),
+    title,
+    kind: normalizeString(body.kind) || "note",
+    content,
+    relatedCategoryId: normalizeString(body.relatedCategoryId),
+    createdAt: now,
+    updatedAt: now
+  };
+
+  notes.unshift(note);
+  await saveNotes(notes);
+  sendJson(response, 201, note);
+  return true;
+}
+
+async function handleCollectionCreate(request, response, pathname) {
+  if (request.method === "POST" && pathname === "/api/categories") {
+    return createCategory(request, response);
+  }
+
+  if (request.method === "POST" && pathname === "/api/resources") {
+    return createResource(request, response);
+  }
+
+  if (request.method === "POST" && pathname === "/api/notes") {
+    return createNote(request, response);
+  }
+
+  return false;
+}
+
+async function handleCategoryItem(request, response, categoryId) {
+  const categories = await getCategories();
+  const index = categories.findIndex((item) => item.id === categoryId);
+  if (index === -1) {
+    sendJson(response, 404, { error: "Not found" });
+    return true;
+  }
+
+  if (request.method === "PATCH") {
+    const body = await readBody(request);
+    categories[index] = {
+      ...categories[index],
+      name: normalizeString(body.name) || categories[index].name,
+      description: normalizeString(body.description),
+      icon: normalizeString(body.icon) || categories[index].icon,
+      accent: normalizeString(body.accent) || categories[index].accent
+    };
+    await saveCategories(categories);
+    sendJson(response, 200, categories[index]);
+    return true;
+  }
+
+  if (request.method === "DELETE") {
+    categories.splice(index, 1);
+    await saveCategories(categories);
+    await deleteResourceFile(categoryId);
+
+    const notes = await getNotes();
+    const updatedNotes = notes.map((note) =>
+      note.relatedCategoryId === categoryId ? { ...note, relatedCategoryId: "" } : note
+    );
+    await saveNotes(updatedNotes);
+    sendJson(response, 200, { ok: true });
+    return true;
+  }
+
+  return false;
+}
+
+async function handleResourceItem(request, response, resourceId) {
+  const located = await findResource(resourceId);
+  if (!located) {
+    sendJson(response, 404, { error: "Not found" });
+    return true;
+  }
+
+  if (request.method === "PATCH") {
+    const body = await readBody(request);
+    const nextCategoryId = normalizeString(body.categoryId) || located.resource.categoryId;
+    const updatedResource = {
+      ...located.resource,
+      title: normalizeString(body.title) || located.resource.title,
+      url: normalizeString(body.url),
+      description: normalizeString(body.description),
+      categoryId: nextCategoryId,
+      tags: Array.isArray(body.tags)
+        ? body.tags.map(normalizeString).filter(Boolean)
+        : normalizeString(body.tags).split(",").map((tag) => tag.trim()).filter(Boolean),
+      type: normalizeString(body.type) || located.resource.type,
+      updatedAt: new Date().toISOString()
+    };
+
+    if (nextCategoryId === located.categoryId) {
+      located.resources[located.index] = updatedResource;
+      await saveResourcesForCategory(located.categoryId, located.resources);
+      sendJson(response, 200, updatedResource);
+      return true;
+    }
+
+    const categories = await getCategories();
+    if (!categories.some((category) => category.id === nextCategoryId)) {
+      sendJson(response, 400, { error: "Selected category does not exist" });
+      return true;
+    }
+
+    located.resources.splice(located.index, 1);
+    await saveResourcesForCategory(located.categoryId, located.resources);
+
+    const targetResources = await getResourcesForCategory(nextCategoryId);
+    targetResources.unshift(updatedResource);
+    await saveResourcesForCategory(nextCategoryId, targetResources);
+    sendJson(response, 200, updatedResource);
+    return true;
+  }
+
+  if (request.method === "DELETE") {
+    located.resources.splice(located.index, 1);
+    await saveResourcesForCategory(located.categoryId, located.resources);
+    sendJson(response, 200, { ok: true });
+    return true;
+  }
+
+  return false;
+}
+
+async function handleNoteItem(request, response, noteId) {
+  const notes = await getNotes();
+  const index = notes.findIndex((item) => item.id === noteId);
+  if (index === -1) {
+    sendJson(response, 404, { error: "Not found" });
+    return true;
+  }
+
+  if (request.method === "PATCH") {
+    const body = await readBody(request);
+    notes[index] = {
+      ...notes[index],
+      title: normalizeString(body.title) || notes[index].title,
+      content: normalizeString(body.content) || notes[index].content,
+      kind: normalizeString(body.kind) || notes[index].kind,
+      relatedCategoryId: normalizeString(body.relatedCategoryId),
+      updatedAt: new Date().toISOString()
+    };
+    await saveNotes(notes);
+    sendJson(response, 200, notes[index]);
+    return true;
+  }
+
+  if (request.method === "DELETE") {
+    notes.splice(index, 1);
+    await saveNotes(notes);
+    sendJson(response, 200, { ok: true });
+    return true;
+  }
+
+  return false;
+}
+
+async function handleCollectionItem(request, response, pathname) {
+  const categoryMatch = pathname.match(/^\/api\/categories\/([^/]+)$/);
+  if (categoryMatch) {
+    return handleCategoryItem(request, response, decodeURIComponent(categoryMatch[1]));
+  }
+
+  const resourceMatch = pathname.match(/^\/api\/resources\/([^/]+)$/);
+  if (resourceMatch) {
+    return handleResourceItem(request, response, decodeURIComponent(resourceMatch[1]));
+  }
+
+  const noteMatch = pathname.match(/^\/api\/notes\/([^/]+)$/);
+  if (noteMatch) {
+    return handleNoteItem(request, response, decodeURIComponent(noteMatch[1]));
+  }
+
+  return false;
+}
+
+async function handleApi(request, response, pathname) {
+  await ensureStorage();
+
+  if (request.method === "GET" && pathname === "/api/data") {
+    sendJson(response, 200, await readDatabase());
+    return;
+  }
+
+  if (await handleCollectionCreate(request, response, pathname)) {
+    return;
+  }
+
+  if (await handleCollectionItem(request, response, pathname)) {
+    return;
+  }
+
+  sendJson(response, 404, { error: "Not found" });
+}
+
+const server = http.createServer(async (request, response) => {
+  try {
+    const url = new URL(request.url, `http://${request.headers.host}`);
+    if (url.pathname.startsWith("/api/")) {
+      await handleApi(request, response, url.pathname);
+      return;
+    }
+    await serveStatic(url.pathname, response);
+  } catch (error) {
+    sendJson(response, 500, { error: error.message || "Unexpected server error" });
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`Resource Organiser running at http://localhost:${PORT}`);
+});

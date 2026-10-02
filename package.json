@@ -1,0 +1,20 @@
+{
+  "name": "resources_organiser",
+  "version": "1.0.0",
+  "description": "Glassmorphism resource organiser with a local JSON-backed CRUD interface and Node.js server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"No tests configured yet\"",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "resource-manager",
+    "json-crud",
+    "vanilla-js",
+    "nodejs",
+    "glassmorphism"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "res-unsecuredapikeys",
+    "title": "Unsecuredapikeys.com",
+    "url": "https://unsecuredapikeys.com",
+    "description": "Reference for getting API keys in free.",
+    "categoryId": "cat-api",
+    "tags": [
+      "api",
+      "keys"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-rapidapi",
+    "title": "Rapidapi.com",
+    "url": "https://rapidapi.com",
+    "description": "API marketplace.",
+    "categoryId": "cat-api",
+    "tags": [
+      "api",
+      "marketplace"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  }
+]

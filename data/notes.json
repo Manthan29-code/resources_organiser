@@ -1,0 +1,20 @@
+[
+  {
+    "id": "note-1790909580445-w3gi6z",
+    "title": "React Performance Optimization Checklist",
+    "kind": "checklist",
+    "content": "✅ Use React.memo for pure functional components\n✅ Use useMemo to memoize expensive calculations\n✅ Use useCallback for stable function references\n✅ Avoid unnecessary state updates\n✅ Implement code splitting with React.lazy\n✅ Optimize image sizes and formats\n✅ Use virtualization for large lists\n✅ Remove unused dependencies\n✅ Analyze bundle size using source-map-explorer\n✅ Test performance with React DevTools Profiler\n\nNotes:\n- Focus on reducing re-renders in the Notes page.\n- Check if category filtering triggers unnecessary component updates.\n- Measure First Contentful Paint (FCP) after optimizations.",
+    "relatedCategoryId": "",
+    "createdAt": "2026-10-02T02:53:00.443Z",
+    "updatedAt": "2026-10-02T02:53:00.443Z"
+  },
+  {
+    "id": "note-tempo-prompt",
+    "title": "Tempo Portfolio Prompt",
+    "kind": "prompt",
+    "content": "I am using a no code ai website tool called tempo and I want to build a exact same portfolio for my graphic design work. now can you please give a detailed prompt so that I just have to give it to ai once, and it will make that portfolio for me, also you can mention about the image i will add it to the chat",
+    "relatedCategoryId": "cat-prompt",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  }
+]

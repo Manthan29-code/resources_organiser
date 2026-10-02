@@ -1,0 +1,58 @@
+[
+    {
+        "id":  "cat-repo",
+        "name":  "Repo Tooling",
+        "description":  "Repo analysis and Git tooling.",
+        "icon":  "layers",
+        "accent":  "teal"
+    },
+    {
+        "id":  "cat-ui",
+        "name":  "Frontend UI",
+        "description":  "UI inspiration and frontend resources.",
+        "icon":  "spark",
+        "accent":  "violet"
+    },
+    {
+        "id":  "cat-scrape",
+        "name":  "Web Scraping",
+        "description":  "Scraping and data collection references.",
+        "icon":  "scan",
+        "accent":  "amber"
+    },
+    {
+        "id":  "cat-ai",
+        "name":  "AI Code Editors",
+        "description":  "AI-assisted builders and editors.",
+        "icon":  "bot",
+        "accent":  "rose"
+    },
+    {
+        "id":  "cat-prompt",
+        "name":  "Design Prompting",
+        "description":  "Saved prompts and guidance.",
+        "icon":  "pen",
+        "accent":  "blue"
+    },
+    {
+        "id":  "cat-api",
+        "name":  "API Platforms",
+        "description":  "API keys and API marketplaces.",
+        "icon":  "key",
+        "accent":  "green"
+    },
+    {
+        "id":  "cat-db",
+        "name":  "Database Tools",
+        "description":  "Schema and diagram tools.",
+        "icon":  "grid",
+        "accent":  "cyan"
+    },
+    {
+        "id":  "cat-prep",
+        "name":  "Interview Prep",
+        "description":  "LeetCode and OA prep.",
+        "icon":  "bolt",
+        "accent":  "orange"
+    }
+]

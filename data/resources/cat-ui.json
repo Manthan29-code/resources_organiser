@@ -1,0 +1,148 @@
+[
+  {
+    "id": "res-animate-ui",
+    "title": "Animate-ui.com",
+    "url": "https://animate-ui.com",
+    "description": "Animation-focused UI inspiration.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "animation",
+      "ui"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-grid-generator",
+    "title": "CSS grid generator.io",
+    "url": "",
+    "description": "Grid layout helper.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "css",
+      "grid"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-reactbits",
+    "title": "Reactbits.dev",
+    "url": "https://reactbits.dev",
+    "description": "Frontend UI resource.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "frontend"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-kokonutui",
+    "title": "Kokonutui.com",
+    "url": "https://kokonutui.com",
+    "description": "UI reference site.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "ui"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-tanstack",
+    "title": "Tanstack",
+    "url": "https://tanstack.com",
+    "description": "Frontend engineering resource.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "frontend"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-gradienty",
+    "title": "gradienty.codes",
+    "url": "https://gradienty.codes",
+    "description": "Gradient styling resource.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "gradients"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-nurui",
+    "title": "Nurui",
+    "url": "",
+    "description": "UI reference from the notes.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "ui"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-visily",
+    "title": "Visily",
+    "url": "https://www.visily.ai",
+    "description": "Wireframing and design tool.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "wireframe"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-shoogle",
+    "title": "Shoogle",
+    "url": "",
+    "description": "Design reference from the notes.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "design"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-designprompt",
+    "title": "Designprompt",
+    "url": "",
+    "description": "Prompt design reference.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "prompting"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-21st-ui",
+    "title": "21st.dev",
+    "url": "https://21st.dev",
+    "description": "Frontend inspiration source.",
+    "categoryId": "cat-ui",
+    "tags": [
+      "frontend",
+      "design"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  }
+]

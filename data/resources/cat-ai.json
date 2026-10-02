@@ -1,0 +1,265 @@
+[
+  {
+    "id": "res-gensparkai",
+    "title": "GensparkAI",
+    "url": "",
+    "description": "AI-assisted coding tool.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "ai"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-28T11:38:21.800Z"
+  },
+  {
+    "id": "res-kombai",
+    "title": "Kombai",
+    "url": "https://kombai.com",
+    "description": "AI coding workflow tool.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "ai",
+      "code"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-locofy",
+    "title": "Locofy.ai",
+    "url": "https://www.locofy.ai",
+    "description": "No-code development resource.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "no-code"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-tempo",
+    "title": "Tempo",
+    "url": "",
+    "description": "No-code AI website tool mentioned in the prompt.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "portfolio",
+      "no-code"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-ganzai",
+    "title": "Ganzai.in",
+    "url": "https://ganzai.in",
+    "description": "AI builder reference.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "builder"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-heroui",
+    "title": "HeroUI",
+    "url": "https://www.heroui.com",
+    "description": "UI builder reference.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "ui"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-lovable",
+    "title": "Lovable",
+    "url": "https://lovable.dev",
+    "description": "AI app builder reference.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "builder"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-apsy",
+    "title": "APSY",
+    "url": "",
+    "description": "AI builder reference.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "tool"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-builderx",
+    "title": "BuilderX",
+    "url": "https://builderx.io",
+    "description": "Design-to-code tool.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "design-to-code"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-cursor",
+    "title": "CURSOR",
+    "url": "https://cursor.com",
+    "description": "AI code editor.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "editor"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-replit",
+    "title": "replit",
+    "url": "https://replit.com",
+    "description": "Cloud coding platform.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "cloud"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-framer-ai",
+    "title": "Framer AI",
+    "url": "https://www.framer.com/ai",
+    "description": "AI website creation tool.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "website"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-glide",
+    "title": "Glide",
+    "url": "https://www.glideapps.com",
+    "description": "No-code app builder.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "app-builder"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-softr",
+    "title": "softr",
+    "url": "https://www.softr.io",
+    "description": "No-code builder platform.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "builder"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-firebase-studio",
+    "title": "Firebase Studio",
+    "url": "",
+    "description": "Studio reference from the notes.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "firebase"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-bubble",
+    "title": "Bubble",
+    "url": "https://bubble.io",
+    "description": "No-code app builder.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "builder"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-appsmith",
+    "title": "Appsmith",
+    "url": "https://www.appsmith.com",
+    "description": "Low-code internal tool builder.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "low-code"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-thunkable",
+    "title": "Thunkable",
+    "url": "https://thunkable.com",
+    "description": "Mobile app builder.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "mobile"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-bolt",
+    "title": "Bolt",
+    "url": "",
+    "description": "Builder reference from the notes.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "builder"
+    ],
+    "type": "tool",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  },
+  {
+    "id": "res-21st-ai",
+    "title": "21st.dev",
+    "url": "https://21st.dev",
+    "description": "Also noted under AI code editors.",
+    "categoryId": "cat-ai",
+    "tags": [
+      "frontend",
+      "ai"
+    ],
+    "type": "website",
+    "createdAt": "2026-04-10T18:30:00.000Z",
+    "updatedAt": "2026-04-10T18:30:00.000Z"
+  }
+]

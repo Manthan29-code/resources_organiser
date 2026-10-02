@@ -1,0 +1,29 @@
+[
+    {
+        "id":  "res-database-build",
+        "title":  "database.build",
+        "url":  "https://database.build",
+        "description":  "Database schema generation tool.",
+        "categoryId":  "cat-db",
+        "tags":  [
+                     "database",
+                     "schema"
+                 ],
+        "type":  "website",
+        "createdAt":  "2026-04-10T18:30:00.000Z",
+        "updatedAt":  "2026-04-10T18:30:00.000Z"
+    },
+    {
+        "id":  "res-eraser",
+        "title":  "Eraser.io",
+        "url":  "https://www.eraser.io",
+        "description":  "Schema and diagramming tool.",
+        "categoryId":  "cat-db",
+        "tags":  [
+                     "diagram"
+                 ],
+        "type":  "website",
+        "createdAt":  "2026-04-10T18:30:00.000Z",
+        "updatedAt":  "2026-04-10T18:30:00.000Z"
+    }
+]

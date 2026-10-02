@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resource Organiser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;475;500;575&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-nav sidebar">
+        <div class="brand-block">
+          <h1>Resource Organiser</h1>
+          <p class="brand-copy">
+            Manage tools, links, categories, and notes with a local JSON file backing every change.
+          </p>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+          <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+          <a href="#/resources" data-route="resources">Resources</a>
+          <a href="#/categories" data-route="categories">Categories</a>
+          <a href="#/notes" data-route="notes">Notes</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="mini-copy">JSON sync in <code>data/</code></p>
+          <button class="ghost-button" id="refresh-data-btn" type="button">Refresh data</button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Local resource system</p>
+            <h2 id="page-title">Dashboard</h2>
+          </div>
+
+          <div class="topbar-actions">
+            <label class="search-shell">
+              <span>Search</span>
+              <input id="global-search" type="search" placeholder="Find resources, notes, tags..." />
+            </label>
+            <button class="primary-button" id="open-resource-modal" type="button">Add resource</button>
+          </div>
+        </header>
+
+        <section id="status-banner" class="status-banner" aria-live="polite"></section>
+        <section id="view" class="view-root route-enter"></section>
+      </main>
+    </div>
+
+    <dialog class="modal glass-panel" id="resource-modal">
+      <form class="modal-form" id="resource-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Resource editor</p>
+            <h3 id="resource-modal-title">Create resource</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal="resource-modal">Close</button>
+        </div>
+        <input type="hidden" name="id" />
+        <label><span>Title</span><input name="title" type="text" required /></label>
+        <label><span>URL</span><input name="url" type="url" placeholder="https://example.com" /></label>
+        <label><span>Description</span><textarea name="description" rows="4"></textarea></label>
+        <label><span>Category</span><select name="categoryId" required id="resource-category-select"></select></label>
+        <label><span>Tags</span><input name="tags" type="text" placeholder="ui, design, animation" /></label>
+        <label><span>Type</span><input name="type" type="text" placeholder="website, tool, note..." /></label>
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" data-close-modal="resource-modal">Cancel</button>
+          <button class="primary-button" type="submit">Save resource</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal glass-panel" id="category-modal">
+      <form class="modal-form" id="category-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Category editor</p>
+            <h3 id="category-modal-title">Create category</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal="category-modal">Close</button>
+        </div>
+        <input type="hidden" name="id" />
+        <label><span>Name</span><input name="name" type="text" required /></label>
+        <label><span>Description</span><textarea name="description" rows="3"></textarea></label>
+        <label><span>Icon keyword</span><input name="icon" type="text" placeholder="spark, bolt, key..." /></label>
+        <label><span>Accent</span><input name="accent" type="text" placeholder="teal, rose, blue..." /></label>
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" data-close-modal="category-modal">Cancel</button>
+          <button class="primary-button" type="submit">Save category</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal glass-panel" id="note-modal">
+      <form class="modal-form" id="note-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Note editor</p>
+            <h3 id="note-modal-title">Create note</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal="note-modal">Close</button>
+        </div>
+        <input type="hidden" name="id" />
+        <label><span>Title</span><input name="title" type="text" required /></label>
+        <label><span>Kind</span><input name="kind" type="text" placeholder="prompt, note, checklist..." /></label>
+        <label><span>Linked category</span><select name="relatedCategoryId" id="note-category-select"></select></label>
+        <label><span>Content</span><textarea name="content" rows="8" required></textarea></label>
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" data-close-modal="note-modal">Cancel</button>
+          <button class="primary-button" type="submit">Save note</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+[
+    {
+        "id":  "res-leeco-ai",
+        "title":  "Leeco AI",
+        "url":  "",
+        "description":  "LeetCode support reference.",
+        "categoryId":  "cat-prep",
+        "tags":  [
+                     "leetcode"
+                 ],
+        "type":  "tool",
+        "createdAt":  "2026-04-10T18:30:00.000Z",
+        "updatedAt":  "2026-04-10T18:30:00.000Z"
+    },
+    {
+        "id":  "res-indio-bix",
+        "title":  "Indio.bix",
+        "url":  "",
+        "description":  "OA round preparation reference.",
+        "categoryId":  "cat-prep",
+        "tags":  [
+                     "oa-round"
+                 ],
+        "type":  "tool",
+        "createdAt":  "2026-04-10T18:30:00.000Z",
+        "updatedAt":  "2026-04-10T18:30:00.000Z"
+    }
+]

@@ -1,0 +1,687 @@
+{
+  "meta": {
+    "title": "Resource Organiser",
+    "description": "Imported from data.txt and used as the local database for the app.",
+    "updatedAt": "2026-04-10T14:35:05.657Z"
+  },
+  "categories": [
+    {
+      "id": "cat-repo",
+      "name": "Repo Tooling",
+      "description": "Repo analysis and Git tooling.",
+      "icon": "layers",
+      "accent": "teal"
+    },
+    {
+      "id": "cat-ui",
+      "name": "Frontend UI",
+      "description": "UI inspiration and frontend resources.",
+      "icon": "spark",
+      "accent": "violet"
+    },
+    {
+      "id": "cat-scrape",
+      "name": "Web Scraping",
+      "description": "Scraping and data collection references.",
+      "icon": "scan",
+      "accent": "amber"
+    },
+    {
+      "id": "cat-ai",
+      "name": "AI Code Editors",
+      "description": "AI-assisted builders and editors.",
+      "icon": "bot",
+      "accent": "rose"
+    },
+    {
+      "id": "cat-prompt",
+      "name": "Design Prompting",
+      "description": "Saved prompts and guidance.",
+      "icon": "pen",
+      "accent": "blue"
+    },
+    {
+      "id": "cat-api",
+      "name": "API Platforms",
+      "description": "API keys and API marketplaces.",
+      "icon": "key",
+      "accent": "green"
+    },
+    {
+      "id": "cat-db",
+      "name": "Database Tools",
+      "description": "Schema and diagram tools.",
+      "icon": "grid",
+      "accent": "cyan"
+    },
+    {
+      "id": "cat-prep",
+      "name": "Interview Prep",
+      "description": "LeetCode and OA prep.",
+      "icon": "bolt",
+      "accent": "orange"
+    }
+  ],
+  "resources": [
+    {
+      "id": "res-code2tutorial",
+      "title": "code2tutorial.com",
+      "url": "https://code2tutorial.com",
+      "description": "Turn a GitHub repository into an interactive tutorial.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "github",
+        "tutorial"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-modelslab",
+      "title": "ModelsLab",
+      "url": "",
+      "description": "Saved repo-related reference.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "tool"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-repo-insite",
+      "title": "Repo insite",
+      "url": "",
+      "description": "Repository insight reference.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "repo"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gitingest",
+      "title": "Gitingest",
+      "url": "",
+      "description": "Repository analysis resource.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "repo",
+        "analysis"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gitprob",
+      "title": "Gitprob",
+      "url": "",
+      "description": "Function call graph reference.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "graph"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gitforme",
+      "title": "Gitforme",
+      "url": "",
+      "description": "Git utility from the notes.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "git"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gitmv",
+      "title": "Gitmv",
+      "url": "",
+      "description": "Git utility from the notes.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "git"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-awesome-copilot",
+      "title": "Awesome copilot",
+      "url": "",
+      "description": "Copilot-related reference.",
+      "categoryId": "cat-repo",
+      "tags": [
+        "copilot"
+      ],
+      "type": "reference",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-animate-ui",
+      "title": "Animate-ui.com",
+      "url": "https://animate-ui.com",
+      "description": "Animation-focused UI inspiration.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "animation",
+        "ui"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-grid-generator",
+      "title": "CSS grid generator.io",
+      "url": "",
+      "description": "Grid layout helper.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "css",
+        "grid"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-reactbits",
+      "title": "Reactbits.dev",
+      "url": "https://reactbits.dev",
+      "description": "Frontend UI resource.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "frontend"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-kokonutui",
+      "title": "Kokonutui.com",
+      "url": "https://kokonutui.com",
+      "description": "UI reference site.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "ui"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-tanstack",
+      "title": "Tanstack",
+      "url": "https://tanstack.com",
+      "description": "Frontend engineering resource.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "frontend"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gradienty",
+      "title": "gradienty.codes",
+      "url": "https://gradienty.codes",
+      "description": "Gradient styling resource.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "gradients"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-nurui",
+      "title": "Nurui",
+      "url": "",
+      "description": "UI reference from the notes.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "ui"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-visily",
+      "title": "Visily",
+      "url": "https://www.visily.ai",
+      "description": "Wireframing and design tool.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "wireframe"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-shoogle",
+      "title": "Shoogle",
+      "url": "",
+      "description": "Design reference from the notes.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "design"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-designprompt",
+      "title": "Designprompt",
+      "url": "",
+      "description": "Prompt design reference.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "prompting"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-21st-ui",
+      "title": "21st.dev",
+      "url": "https://21st.dev",
+      "description": "Frontend inspiration source.",
+      "categoryId": "cat-ui",
+      "tags": [
+        "frontend",
+        "design"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-chat4data",
+      "title": "Chat4data",
+      "url": "",
+      "description": "Web scraping resource.",
+      "categoryId": "cat-scrape",
+      "tags": [
+        "scraping"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-gensparkai",
+      "title": "GensparkAI",
+      "url": "",
+      "description": "AI-assisted coding tool.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "ai"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-kombai",
+      "title": "Kombai",
+      "url": "https://kombai.com",
+      "description": "AI coding workflow tool.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "ai",
+        "code"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-locofy",
+      "title": "Locofy.ai",
+      "url": "https://www.locofy.ai",
+      "description": "No-code development resource.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "no-code"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-tempo",
+      "title": "Tempo",
+      "url": "",
+      "description": "No-code AI website tool mentioned in the prompt.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "portfolio",
+        "no-code"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-ganzai",
+      "title": "Ganzai.in",
+      "url": "https://ganzai.in",
+      "description": "AI builder reference.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "builder"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-heroui",
+      "title": "HeroUI",
+      "url": "https://www.heroui.com",
+      "description": "UI builder reference.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "ui"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-lovable",
+      "title": "Lovable",
+      "url": "https://lovable.dev",
+      "description": "AI app builder reference.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "builder"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-apsy",
+      "title": "APSY",
+      "url": "",
+      "description": "AI builder reference.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "tool"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-builderx",
+      "title": "BuilderX",
+      "url": "https://builderx.io",
+      "description": "Design-to-code tool.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "design-to-code"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-cursor",
+      "title": "CURSOR",
+      "url": "https://cursor.com",
+      "description": "AI code editor.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "editor"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-replit",
+      "title": "replit",
+      "url": "https://replit.com",
+      "description": "Cloud coding platform.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "cloud"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-framer-ai",
+      "title": "Framer AI",
+      "url": "https://www.framer.com/ai",
+      "description": "AI website creation tool.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "website"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-glide",
+      "title": "Glide",
+      "url": "https://www.glideapps.com",
+      "description": "No-code app builder.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "app-builder"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-softr",
+      "title": "softr",
+      "url": "https://www.softr.io",
+      "description": "No-code builder platform.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "builder"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-firebase-studio",
+      "title": "Firebase Studio",
+      "url": "",
+      "description": "Studio reference from the notes.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "firebase"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-bubble",
+      "title": "Bubble",
+      "url": "https://bubble.io",
+      "description": "No-code app builder.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "builder"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-appsmith",
+      "title": "Appsmith",
+      "url": "https://www.appsmith.com",
+      "description": "Low-code internal tool builder.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "low-code"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-thunkable",
+      "title": "Thunkable",
+      "url": "https://thunkable.com",
+      "description": "Mobile app builder.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "mobile"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-bolt",
+      "title": "Bolt",
+      "url": "",
+      "description": "Builder reference from the notes.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "builder"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-21st-ai",
+      "title": "21st.dev",
+      "url": "https://21st.dev",
+      "description": "Also noted under AI code editors.",
+      "categoryId": "cat-ai",
+      "tags": [
+        "frontend",
+        "ai"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-unsecuredapikeys",
+      "title": "Unsecuredapikeys.com",
+      "url": "https://unsecuredapikeys.com",
+      "description": "Reference for getting API keys in free.",
+      "categoryId": "cat-api",
+      "tags": [
+        "api",
+        "keys"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-rapidapi",
+      "title": "Rapidapi.com",
+      "url": "https://rapidapi.com",
+      "description": "API marketplace.",
+      "categoryId": "cat-api",
+      "tags": [
+        "api",
+        "marketplace"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-database-build",
+      "title": "database.build",
+      "url": "https://database.build",
+      "description": "Database schema generation tool.",
+      "categoryId": "cat-db",
+      "tags": [
+        "database",
+        "schema"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-eraser",
+      "title": "Eraser.io",
+      "url": "https://www.eraser.io",
+      "description": "Schema and diagramming tool.",
+      "categoryId": "cat-db",
+      "tags": [
+        "diagram"
+      ],
+      "type": "website",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-leeco-ai",
+      "title": "Leeco AI",
+      "url": "",
+      "description": "LeetCode support reference.",
+      "categoryId": "cat-prep",
+      "tags": [
+        "leetcode"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    },
+    {
+      "id": "res-indio-bix",
+      "title": "Indio.bix",
+      "url": "",
+      "description": "OA round preparation reference.",
+      "categoryId": "cat-prep",
+      "tags": [
+        "oa-round"
+      ],
+      "type": "tool",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-tempo-prompt",
+      "title": "Tempo Portfolio Prompt",
+      "kind": "prompt",
+      "content": "I am using a no code ai website tool called tempo and I want to build a exact same portfolio for my graphic design work. now can you please give a detailed prompt so that I just have to give it to ai once, and it will make that portfolio for me, also you can mention about the image i will add it to the chat",
+      "relatedCategoryId": "cat-prompt",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "updatedAt": "2026-04-10T18:30:00.000Z"
+    }
+  ]
+}

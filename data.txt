@@ -1,0 +1,75 @@
+You can instantly turn any GitHub repository into a clean, interactive tutorial, perfect for documentation, onboarding, or teaching others.
+code2tutorial.com
+
++ModelsLab
+
+Repo insite
+Gitingest
+Gitprob (function call graph)
+Gitforme
+Gitmv
+Awesome copilot 
+
+
+
+Website for frontend UI
++Animate-ui.com
++CSS grid generator.io
++Reactbits.dev
++Kokonutui.com
++Tanstack 
++gradienty.codes
++Nurui
++Visily
++Shoogle
++Designprompt
++21st.dev
+
+
+Web scraping:-
+Chat4data
+
+
+AI code editor
+• GensparkAI
+• Kombai
+• Locofy.ai
+• Tempo
+• Ganzai.in
+• HeroUI
+• Lovable
+• APSY
+• BuilderX
+• CURSOR
+• replit
+• Framer AI
+• Glide
+• softr
+• Firebase Studio
+• Bubble
+• Appsmith
+• Thunkable
+• Bolt
+• 21st.dev
+
+
+To generate good ui design 
+Prompt Used :
+I am using a no code ai website tool called tempo and I want to build a exact same portfolio for my graphic design work. now can you please give a detailed prompt so that I just have to give it to ai once, and it will make that portfolio for me, also you can mention about the image i will add it to the chat
+
+
+
+
+Get api key in free
++Unsecuredapikeys.com
++Rapidapi.com
+
+To generate db schema 
++database.build
++Eraser.io
+
+For leetcode
++Leeco AI
+
+OA round 
++Indio.bix

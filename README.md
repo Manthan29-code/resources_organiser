@@ -142,6 +142,22 @@ Open your browser and navigate to:
 
 ---
 
+## 🔄 GitHub Auto-Sync (Optional)
+
+If you want changes made in the web app to automatically commit & push to your GitHub repository in the cloud:
+
+Set the following environment variables (e.g. in your Render / Railway dashboard):
+
+| Environment Variable | Example Value | Description |
+|---|---|---|
+| `GITHUB_TOKEN` | `ghp_xxxxxx` | GitHub Personal Access Token (Classic with `repo` scope) |
+| `GITHUB_REPO` | `your-username/resources_organiser` | Repository target |
+| `GITHUB_BRANCH` | `main` | Target branch (default is `main`) |
+
+Whenever a category, resource, or note is added or updated, [`server.js`](file:///c:/MyProject/resources_organiser/server.js) will commit the updated JSON file directly to GitHub via the GitHub API.
+
+---
+
 ## 🛠️ API Endpoints Summary
 
 | Method | Endpoint | Description |

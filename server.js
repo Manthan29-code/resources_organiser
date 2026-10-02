@@ -18,6 +18,10 @@ const MIME_TYPES = {
   ".json": "application/json; charset=utf-8"
 };
 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || "";
+const GITHUB_REPO = process.env.GITHUB_REPO || "";
+const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main";
+
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
@@ -77,8 +81,73 @@ async function readJson(filePath, fallback) {
   }
 }
 
+async function syncToGitHub(filePath, dataOrNull, isDelete = false) {
+  if (!GITHUB_TOKEN || !GITHUB_REPO) return;
+
+  try {
+    const relativePath = path.relative(ROOT, filePath).replace(/\\/g, "/");
+    const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${relativePath}`;
+    const headers = {
+      "Authorization": `token ${GITHUB_TOKEN}`,
+      "Accept": "application/vnd.github.v3+json",
+      "User-Agent": "ResourceOrganiser-Sync",
+      "Content-Type": "application/json"
+    };
+
+    let sha = null;
+    try {
+      const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, { headers });
+      if (getRes.ok) {
+        const existing = await getRes.json();
+        sha = existing.sha;
+      }
+    } catch {
+      // ignore fetch get error
+    }
+
+    if (isDelete) {
+      if (!sha) return;
+      await fetch(apiUrl, {
+        method: "DELETE",
+        headers,
+        body: JSON.stringify({
+          message: `chore: delete ${relativePath}`,
+          sha,
+          branch: GITHUB_BRANCH
+        })
+      });
+      console.log(`[GitHub Sync] Deleted ${relativePath} from ${GITHUB_REPO}`);
+      return;
+    }
+
+    const contentBase64 = Buffer.from(JSON.stringify(dataOrNull, null, 2), "utf8").toString("base64");
+    const payload = {
+      message: `chore(data): auto-sync ${relativePath}`,
+      content: contentBase64,
+      branch: GITHUB_BRANCH,
+      ...(sha ? { sha } : {})
+    };
+
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(payload)
+    });
+
+    if (putRes.ok) {
+      console.log(`[GitHub Sync] Synced ${relativePath} to ${GITHUB_REPO}`);
+    } else {
+      const errData = await putRes.json().catch(() => ({}));
+      console.error(`[GitHub Sync] Failed syncing ${relativePath}:`, errData.message || putRes.statusText);
+    }
+  } catch (err) {
+    console.error(`[GitHub Sync] Error syncing ${filePath}:`, err.message);
+  }
+}
+
 async function writeJson(filePath, data) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
+  syncToGitHub(filePath, data, false).catch(() => {});
 }
 
 function ensureArray(value) {
@@ -145,14 +214,16 @@ async function saveResourcesForCategory(categoryId, resources) {
 }
 
 async function deleteResourceFile(categoryId) {
+  const filePath = resourceFilePath(categoryId);
   try {
-    await fs.unlink(resourceFilePath(categoryId));
+    await fs.unlink(filePath);
   } catch (error) {
     if (error.code !== "ENOENT") {
       throw error;
     }
   }
   await updateMetaTimestamp();
+  syncToGitHub(filePath, null, true).catch(() => {});
 }
 
 async function getAllResources(categories) {

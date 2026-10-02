@@ -32,5 +32,8 @@ export const api = {
   deleteResource: (id) => request(`/api/resources/${id}`, { method: "DELETE" }),
   createNote: (payload) => request("/api/notes", { method: "POST", body: JSON.stringify(payload) }),
   updateNote: (id, payload) => request(`/api/notes/${id}`, { method: "PATCH", body: JSON.stringify(payload) }),
-  deleteNote: (id) => request(`/api/notes/${id}`, { method: "DELETE" })
+  deleteNote: (id) => request(`/api/notes/${id}`, { method: "DELETE" }),
+  getGithubStatus: () => request("/api/github/status"),
+  syncToGithub: () => request("/api/github/sync", { method: "POST" }),
+  pushNoteToGithub: (noteId) => request(`/api/github/push-note/${encodeURIComponent(noteId)}`, { method: "POST" })
 };

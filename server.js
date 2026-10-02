@@ -587,11 +587,190 @@ async function handleCollectionItem(request, response, pathname) {
   return false;
 }
 
+async function handleGithubApi(request, response, pathname) {
+  if (pathname === "/api/github/status" && request.method === "GET") {
+    if (!GITHUB_TOKEN || !GITHUB_REPO) {
+      sendJson(response, 200, {
+        configured: false,
+        message: "GITHUB_TOKEN or GITHUB_REPO not configured in .env"
+      });
+      return true;
+    }
+
+    try {
+      const ghRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
+        headers: {
+          "Authorization": `token ${GITHUB_TOKEN}`,
+          "Accept": "application/vnd.github.v3+json",
+          "User-Agent": "ResourceOrganiser-Sync"
+        }
+      });
+
+      if (!ghRes.ok) {
+        const errData = await ghRes.json().catch(() => ({}));
+        sendJson(response, 200, {
+          configured: true,
+          connected: false,
+          repo: GITHUB_REPO,
+          branch: GITHUB_BRANCH,
+          error: errData.message || ghRes.statusText
+        });
+        return true;
+      }
+
+      const repoData = await ghRes.json();
+      sendJson(response, 200, {
+        configured: true,
+        connected: true,
+        repo: GITHUB_REPO,
+        branch: GITHUB_BRANCH,
+        repoName: repoData.full_name,
+        isPrivate: repoData.private,
+        defaultBranch: repoData.default_branch,
+        htmlUrl: repoData.html_url,
+        updatedAt: repoData.updated_at
+      });
+      return true;
+    } catch (err) {
+      sendJson(response, 200, {
+        configured: true,
+        connected: false,
+        repo: GITHUB_REPO,
+        branch: GITHUB_BRANCH,
+        error: err.message
+      });
+      return true;
+    }
+  }
+
+  if (pathname === "/api/github/sync" && request.method === "POST") {
+    if (!GITHUB_TOKEN || !GITHUB_REPO) {
+      sendJson(response, 400, { error: "GitHub credentials not configured in .env" });
+      return true;
+    }
+
+    try {
+      const db = await readDatabase();
+      await syncToGitHub(META_PATH, db.meta);
+      await syncToGitHub(CATEGORIES_PATH, db.categories);
+      await syncToGitHub(NOTES_PATH, db.notes);
+
+      for (const cat of db.categories) {
+        const catRes = await getResourcesForCategory(cat.id);
+        await syncToGitHub(resourceFilePath(cat.id), catRes);
+      }
+
+      sendJson(response, 200, {
+        ok: true,
+        message: `Successfully synchronized database and notes to ${GITHUB_REPO} (${GITHUB_BRANCH})`
+      });
+      return true;
+    } catch (err) {
+      sendJson(response, 500, { error: err.message });
+      return true;
+    }
+  }
+
+  const pushNoteMatch = pathname.match(/^\/api\/github\/push-note\/([^/]+)$/);
+  if (pushNoteMatch && request.method === "POST") {
+    if (!GITHUB_TOKEN || !GITHUB_REPO) {
+      sendJson(response, 400, { error: "GitHub credentials not configured in .env" });
+      return true;
+    }
+
+    const noteId = decodeURIComponent(pushNoteMatch[1]);
+    const notes = await getNotes();
+    const note = notes.find((n) => n.id === noteId);
+    if (!note) {
+      sendJson(response, 404, { error: "Note not found" });
+      return true;
+    }
+
+    const categories = await getCategories();
+    const cat = categories.find((c) => c.id === note.relatedCategoryId);
+    const categoryName = cat ? cat.name : "Uncategorized";
+
+    const safeTitle = note.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || note.id;
+    const notePath = `notes/${safeTitle}.md`;
+
+    const mdContent = `---
+id: "${note.id}"
+title: "${note.title.replace(/"/g, '\\"')}"
+kind: "${note.kind || "note"}"
+category: "${categoryName}"
+createdAt: "${note.createdAt}"
+updatedAt: "${note.updatedAt}"
+---
+
+# ${note.title}
+
+${note.content}
+`;
+
+    const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${notePath}`;
+    const headers = {
+      "Authorization": `token ${GITHUB_TOKEN}`,
+      "Accept": "application/vnd.github.v3+json",
+      "User-Agent": "ResourceOrganiser-Sync",
+      "Content-Type": "application/json"
+    };
+
+    let sha = null;
+    try {
+      const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(GITHUB_BRANCH)}&_t=${Date.now()}`, {
+        headers,
+        cache: "no-store"
+      });
+      if (getRes.ok) {
+        const existing = await getRes.json();
+        sha = existing.sha;
+      }
+    } catch {
+      // ignore
+    }
+
+    const contentBase64 = Buffer.from(mdContent, "utf8").toString("base64");
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({
+        message: `docs(notes): update ${note.title} [Markdown]`,
+        content: contentBase64,
+        branch: GITHUB_BRANCH,
+        ...(sha ? { sha } : {})
+      })
+    });
+
+    if (!putRes.ok) {
+      const errData = await putRes.json().catch(() => ({}));
+      sendJson(response, putRes.status, {
+        error: errData.message || "Failed to push note markdown to GitHub"
+      });
+      return true;
+    }
+
+    const resultData = await putRes.json();
+    sendJson(response, 200, {
+      ok: true,
+      path: notePath,
+      url: resultData.content?.html_url || `https://github.com/${GITHUB_REPO}/blob/${GITHUB_BRANCH}/${notePath}`,
+      message: `Pushed "${note.title}" markdown file to GitHub successfully!`
+    });
+    return true;
+  }
+
+  return false;
+}
+
 async function handleApi(request, response, pathname) {
   await ensureStorage();
 
   if (request.method === "GET" && pathname === "/api/data") {
     sendJson(response, 200, await readDatabase());
+    return;
+  }
+
+  if (await handleGithubApi(request, response, pathname)) {
     return;
   }
 

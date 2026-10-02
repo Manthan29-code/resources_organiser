@@ -1,21 +1,21 @@
 [
   {
-    "id": "note-1790916040736-11f5e2",
-    "title": "Resource Organiser MVP Tasks",
-    "kind": "checklist",
-    "content": "[ ] Category CRUD\n[ ] Resource CRUD\n[ ] Notes CRUD\n[ ] Search functionality\n[ ] Tag system\n[ ] Markdown support\n[ ] Local storage persistence\n[ ] Dark mode\n[ ] Export/Import JSON\n[ ] Responsive mobile UI",
+    "id": "note-1790936028487-0ybpj7",
+    "title": "ssential Repository Tooling",
+    "kind": "Development Tools",
+    "content": "# Essential Repository Tooling\n\nRepository tooling helps developers manage code, collaborate efficiently, and maintain project quality throughout the development lifecycle.\n\n## Core Tools\n\n### Version Control\n- Git\n- GitHub\n- GitLab\n- Bitbucket\n\n### Code Quality\n- ESLint\n- Prettier\n- Husky\n- Commitlint\n\n### CI/CD\n- GitHub Actions\n- GitLab CI/CD\n- Jenkins\n- CircleCI\n\n### Package Management\n- npm\n- Yarn\n- pnpm\n\n## Best Practices\n\n- Use meaningful commit messages.\n- Create feature branches for new development.\n- Protect the main branch with pull request reviews.\n- Automate testing and deployments.\n- Maintain clear project documentation.\n\n## Typical Workflow\n\n1. Clone the repository.\n2. Create a feature branch.\n3. Make changes and commit.\n4. Push changes to remote.\n5. Open a Pull Request.\n6. Review, test, and merge.\n\n> Good repository tooling improves collaboration, code quality, and deployment reliability.",
     "relatedCategoryId": "",
-    "createdAt": "2026-10-02T04:40:40.735Z",
-    "updatedAt": "2026-10-02T04:40:40.735Z"
+    "createdAt": "2026-10-02T10:13:48.485Z",
+    "updatedAt": "2026-10-02T10:13:48.485Z"
   },
   {
     "id": "note-1790915515750-ftf5mw",
     "title": "JavaScript Array Methods",
     "kind": "note",
-    "content": "map()      -> Transforms elements\nfilter()   -> Selects matching elements\nreduce()   -> Accumulates values\nfind()     -> Returns first matching item\nsome()     -> Checks if any item matches\nevery()    -> Checks if all items match\n\nTip:\nPrefer map/filter over manual loops when readability is important.",
+    "content": "## JavaScript Array Methods\n\n- **`map()`** → Transforms elements\n- **`filter()`** → Selects matching elements\n- **`reduce()`** → Accumulates values\n- **`find()`** → Returns the first matching item\n- **`some()`** → Checks if any item matches\n- **`every()`** → Checks if all items match\n\n> **Tip:** Prefer `map()` and `filter()` over manual loops when readability is important.",
     "relatedCategoryId": "",
     "createdAt": "2026-10-02T04:31:55.747Z",
-    "updatedAt": "2026-10-02T04:31:55.747Z"
+    "updatedAt": "2026-10-02T10:02:03.989Z"
   },
   {
     "id": "note-1790915108203-mnbflp",

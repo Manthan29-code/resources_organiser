@@ -231,7 +231,7 @@ export function renderNotes(store) {
 
   return `
     <section class="toolbar">
-      <button class="primary-button" data-open-modal="note" type="button">Create note</button>
+      <button class="primary-button" data-open-modal="note" type="button">+ Create note</button>
       <button class="ghost-button" data-route-jump="dashboard" type="button">Back to dashboard</button>
     </section>
     <section class="note-grid">
@@ -239,13 +239,20 @@ export function renderNotes(store) {
         .map(
           (note) => `
           <article class="note-card">
-            <p class="eyebrow">${escapeHtml(note.kind || "note")}</p>
-            <h4>${escapeHtml(note.title)}</h4>
-            <p>${escapeHtml(note.content)}</p>
-            <div class="note-meta"><span class="badge">${escapeHtml(categoryMap.get(note.relatedCategoryId)?.name || "No linked category")}</span></div>
+            <div class="note-card-top">
+              <p class="eyebrow">${escapeHtml(note.kind || "note")}</p>
+              <h4>${escapeHtml(note.title)}</h4>
+            </div>
+            <p class="note-card-excerpt">${escapeHtml(note.content || "")}</p>
+            <div class="note-meta">
+              <span class="badge">${escapeHtml(categoryMap.get(note.relatedCategoryId)?.name || "No linked category")}</span>
+            </div>
             <div class="card-footer">
+              <div class="card-actions">
+                <a class="primary-button btn-view-note" href="#/notes/${encodeURIComponent(note.id)}" data-view-note="${note.id}">View</a>
+              </div>
               <div class="card-actions card-actions--end">
-                <button class="ghost-button" data-edit-note="${note.id}" type="button">Edit</button>
+                <button class="ghost-button" data-edit-note="${note.id}" type="button" title="Edit in Toast UI Editor">Edit</button>
                 <button class="danger-button" data-delete-note="${note.id}" type="button">Delete</button>
               </div>
             </div>
@@ -254,5 +261,71 @@ export function renderNotes(store) {
         )
         .join("")}
     </section>
+  `;
+}
+
+export function renderNoteDetail(store) {
+  const { notes, categories } = store.data;
+  const noteId = store.routeParam;
+  const note = notes.find((n) => n.id === noteId);
+  const categoryMap = getCategoryMap(categories);
+
+  if (!note) {
+    return createEmptyState(
+      "Note not found",
+      "The requested note does not exist or may have been removed.",
+      "Back to notes",
+      "notes"
+    );
+  }
+
+  const categoryName = categoryMap.get(note.relatedCategoryId)?.name || "No linked category";
+  const updatedDate = new Date(note.updatedAt || note.createdAt || Date.now()).toLocaleString();
+  const wordCount = (note.content || "").trim().split(/\s+/).filter(Boolean).length;
+
+  return `
+    <article class="note-detail-wrapper">
+      <div class="note-detail-top-nav">
+        <button class="ghost-button back-nav-btn" data-route-jump="notes" type="button">
+          ← Back to Notes
+        </button>
+        <div class="note-detail-meta-pills">
+          <span class="type-pill">${escapeHtml(note.kind || "note")}</span>
+          <span class="badge">${escapeHtml(categoryName)}</span>
+          <span class="meta-timestamp">Updated ${escapeHtml(updatedDate)}</span>
+        </div>
+      </div>
+
+      <header class="note-detail-hero">
+        <div class="note-detail-header-text">
+          <p class="eyebrow">${escapeHtml(note.kind || "markdown document")}</p>
+          <h1 class="note-detail-heading">${escapeHtml(note.title)}</h1>
+        </div>
+
+        <div class="note-detail-actions-bar">
+          <button class="primary-button" data-edit-note="${note.id}" type="button">
+            ✏️ Edit Note
+          </button>
+          <button class="ghost-button" data-copy-markdown="${note.id}" type="button">
+            📋 Copy Markdown
+          </button>
+          <button class="danger-button" data-delete-note="${note.id}" type="button">
+            Delete
+          </button>
+        </div>
+      </header>
+
+      <section class="note-detail-content-card">
+        <div class="viewer-top-bar">
+          <div class="viewer-mode-badge">
+            <span class="viewer-dot"></span> Markdown Rendered View
+          </div>
+          <span class="viewer-stats">${wordCount} words &bull; ${note.content ? note.content.length : 0} characters</span>
+        </div>
+        <div id="toastui-viewer-target" class="note-markdown-rendered-view" data-note-id="${note.id}">
+          <!-- Toast UI Editor Viewer will be mounted here -->
+        </div>
+      </section>
+    </article>
   `;
 }

@@ -6,10 +6,17 @@
     <title>Resource Organiser</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;475;500;575&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;475;500;575;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- Toast UI Editor Stylesheet -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    
     <link rel="stylesheet" href="./css/base.css" />
     <link rel="stylesheet" href="./css/layout.css" />
     <link rel="stylesheet" href="./css/components.css" />
+    
+    <!-- Toast UI Editor Script -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
   </head>
   <body>
     <div class="app-shell">
@@ -17,7 +24,7 @@
         <div class="brand-block">
           <h1>Resource Organiser</h1>
           <p class="brand-copy">
-            Manage tools, links, categories, and notes with a local JSON file backing every change.
+            Manage tools, links, categories, and markdown notes with real-time JSON &amp; GitHub REST API sync.
           </p>
         </div>
 
@@ -29,7 +36,10 @@
         </nav>
 
         <div class="sidebar-footer">
-          <p class="mini-copy">JSON sync in <code>data/</code></p>
+          <div class="github-status-pill" id="github-status-indicator" title="Automatic GitHub REST API Sync Active">
+            <span class="status-dot"></span>
+            <span class="status-label">GitHub Auto-Sync</span>
+          </div>
           <button class="ghost-button" id="refresh-data-btn" type="button">Refresh data</button>
         </div>
       </header>
@@ -37,7 +47,7 @@
       <main class="main-content">
         <header class="topbar">
           <div>
-            <p class="eyebrow">Local resource system</p>
+            <p class="eyebrow" id="page-eyebrow">Local resource system</p>
             <h2 id="page-title">Dashboard</h2>
           </div>
 
@@ -47,6 +57,7 @@
               <input id="global-search" type="search" placeholder="Find resources, notes, tags..." />
             </label>
             <button class="primary-button" id="open-resource-modal" type="button">Add resource</button>
+            <button class="primary-button" id="open-note-modal-btn" type="button" style="background: var(--color-coral); border-color: var(--color-coral);">Add note</button>
           </div>
         </header>
 
@@ -55,6 +66,7 @@
       </main>
     </div>
 
+    <!-- Resource Modal -->
     <dialog class="modal glass-panel" id="resource-modal">
       <form class="modal-form" id="resource-form">
         <div class="modal-header">
@@ -78,6 +90,7 @@
       </form>
     </dialog>
 
+    <!-- Category Modal -->
     <dialog class="modal glass-panel" id="category-modal">
       <form class="modal-form" id="category-form">
         <div class="modal-header">
@@ -99,20 +112,31 @@
       </form>
     </dialog>
 
-    <dialog class="modal glass-panel" id="note-modal">
+    <!-- Note Modal (with Toast UI WYSIWYG & Markdown Editor) -->
+    <dialog class="modal glass-panel modal--wide" id="note-modal">
       <form class="modal-form" id="note-form">
         <div class="modal-header">
           <div>
-            <p class="eyebrow">Note editor</p>
+            <p class="eyebrow">Toast UI Markdown Editor</p>
             <h3 id="note-modal-title">Create note</h3>
           </div>
           <button class="icon-button" type="button" data-close-modal="note-modal">Close</button>
         </div>
         <input type="hidden" name="id" />
-        <label><span>Title</span><input name="title" type="text" required /></label>
-        <label><span>Kind</span><input name="kind" type="text" placeholder="prompt, note, checklist..." /></label>
+        <div class="form-row-2">
+          <label><span>Title</span><input name="title" type="text" required placeholder="e.g. JavaScript Array Methods" /></label>
+          <label><span>Kind</span><input name="kind" type="text" placeholder="note, prompt, checklist, snippet..." /></label>
+        </div>
         <label><span>Linked category</span><select name="relatedCategoryId" id="note-category-select"></select></label>
-        <label><span>Content</span><textarea name="content" rows="8" required></textarea></label>
+        
+        <div class="editor-container-shell">
+          <div class="editor-header-bar">
+            <span>Content (WYSIWYG &amp; Markdown Mode)</span>
+            <span class="editor-pill">Toast UI Editor</span>
+          </div>
+          <div id="toastui-note-editor"></div>
+        </div>
+
         <div class="modal-actions">
           <button class="ghost-button" type="button" data-close-modal="note-modal">Cancel</button>
           <button class="primary-button" type="submit">Save note</button>

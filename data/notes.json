@@ -3,10 +3,10 @@
     "id": "note-1790916040736-11f5e2",
     "title": "Resource Organiser MVP Tasks",
     "kind": "checklist",
-    "content": "[ ] Category CRUD\n[ ] Resource CRUD\n[ ] Notes CRUD\n[ ] Search functionality\n[ ] Tag system\n[ ] Markdown support\n[ ] Local storage persistence\n[ ] Dark mode\n[ ] Export/Import JSON\n[ ] Responsive mobile UI",
+    "content": "\\#\\# Features\n\\- \\[ \\] Category CRUD\n\\- \\[ \\] Resource CRUD\n\\- \\[ \\] Notes CRUD\n\\- \\[ \\] Search Functionality\n\\- \\[ \\] Tag System\n\\- \\[ \\] Markdown Support\n\\- \\[ \\] Local Storage Persistence\n\\- \\[ \\] Dark Mode\n\\- \\[ \\] Export/Import JSON\n\\- \\[ \\] Responsive Mobile UI",
     "relatedCategoryId": "",
     "createdAt": "2026-10-02T04:40:40.735Z",
-    "updatedAt": "2026-10-02T04:40:40.735Z"
+    "updatedAt": "2026-10-02T10:09:50.635Z"
   },
   {
     "id": "note-1790915515750-ftf5mw",

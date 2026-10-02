@@ -1,5 +1,14 @@
 [
   {
+    "id": "note-1790916040736-11f5e2",
+    "title": "Resource Organiser MVP Tasks",
+    "kind": "checklist",
+    "content": "[ ] Category CRUD\n[ ] Resource CRUD\n[ ] Notes CRUD\n[ ] Search functionality\n[ ] Tag system\n[ ] Markdown support\n[ ] Local storage persistence\n[ ] Dark mode\n[ ] Export/Import JSON\n[ ] Responsive mobile UI",
+    "relatedCategoryId": "",
+    "createdAt": "2026-10-02T04:40:40.735Z",
+    "updatedAt": "2026-10-02T04:40:40.735Z"
+  },
+  {
     "id": "note-1790915515750-ftf5mw",
     "title": "JavaScript Array Methods",
     "kind": "note",
